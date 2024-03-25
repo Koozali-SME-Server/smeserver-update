@@ -1,0 +1,43 @@
+#!/usr/bin/perl -w
+
+use esmith::Build::CreateLinks qw(:all);
+use esmith::Build::Backup qw(:all);
+
+# our event specific for updating with yum without reboot
+$event = 'smeserver-update-update';
+#add here the path to your templates needed to expand
+#see the /etc/systemd/system-preset/49-koozali.preset should be present for systemd integration on all you yum update event
+
+# Maybe need ths in here as well:
+# /etc/dar/DailyBackup.dcf - if backup requested
+
+foreach my $file (qw(
+        /etc/systemd/system-preset/49-koozali.preset
+))
+{
+    templates2events( $file, $event );
+};
+#action needed in case we have a systemd unit
+event_link('systemd-default', $event, '10');
+event_link('systemd-reload', $event, '50');
+
+#services we might need to restart
+#event_services($event, 'xxxx' => 'restart', 'yyyy' => 'restart');
+
+#Backup contrib files
+# backup_includes("smeserver-update", qw(
+    # files(s) to be backed up
+#));
+
+#Other possible entries:
+#Server manager entry
+#panel_link("smeserver-update", 'manager');
+#Events to smeserver-update
+#$event = 'smeserver-update-smeserver-update';
+# safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/smeserver-update");
+# templates2events("/etc/smeserver-update/smeserver-update.conf", $event);
+
+
+
+
+
