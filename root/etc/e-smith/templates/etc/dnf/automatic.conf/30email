@@ -1,0 +1,12 @@
+[email]
+# The address to send email messages from.
+# NOTE: 'localhost' will be replaced with the value of system_name.
+email_from = { 'root@' . $DomainName }
+
+# List of addresses to send messages to.
+email_to = { $dnf{ReportEmail} || 'admin@' . $DomainName }
+
+# Name of the host to connect to to send email messages.
+email_host = localhost
+
+

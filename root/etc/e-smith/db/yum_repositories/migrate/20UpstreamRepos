@@ -1,0 +1,8 @@
+{
+    for my $name ( qw(appstream baseos extras remi-safe remi-modular) )
+    {
+	my $repo = $DB->get($name) or next;
+
+        $repo->set_prop('Visible', 'yes');
+    }
+}

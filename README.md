@@ -11,4 +11,4 @@ Show list of outstanding bugs: [here](https://bugs.koozali.org/buglist.cgi?compo
 ## Description
 
 SME 11 new updater
-
+This package replace the former smeserver-yum package which was based on yum. With SME11 based on el8, yum has been replaced by dnf. This brings some breaking change with plugins, and some new features like modularity.

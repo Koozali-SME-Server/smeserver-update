@@ -1,0 +1,53 @@
+{
+    use POSIX qw(strftime);
+    use File::Slurp;
+    my $curdate = strftime '%Y%m%d', localtime;
+    my $curVers = 8;
+    my $curVersEOL = 20290531;
+    #get Rocky release we are
+    my $SUBVER = read_file('/etc/rocky-release');
+    $SUBVER =~ s/^Rocky Linux release ([0-9\.]+).*?$/$1/;
+    chomp $SUBVER;
+    # we ignore the force value if for a previous release; idealy should be deleted from another fragment against configuration db
+    delete $dnf{eolversion} if ( ( defined $dnf{eolversion} && (substr($dnf{eolversion},0,1)<$curVers) ) || ( "$curdate"  < "$curVersEOL") ); 
+    $SUBVER =  $dnf{eolversion} ||  $SUBVER ;
+
+    # we need to remove that from migrated server 
+    for my $name ( qw(appstream baseos extras) )
+    {
+	my $repo = $DB->get($name) or next;
+	my $baseurl = $repo->prop('BaseURL') or next;
+	my $mirrorlist = $repo->prop('MirrorList') or next;
+	if ( $baseurl =~ /^https:\/\/dl\.rockylinux\.org\/vault\/rocky\/([0-9])/ )
+	{
+	    # we want to reset this unless vers 8
+	    next if ($1 == $curVers && "$curdate"  >= "$curVersEOL");
+            $repo->delete_prop('MirrorList');
+            $repo->delete_prop('BaseURL');
+            unlink "/var/cache/dnf/$name/$_" foreach qw(repomd.xml mirrorlist.txt);
+	}
+	else
+	{
+	    # no match for a numerical, we probably want to reset that as well
+            $repo->delete_prop('MirrorList');
+            $repo->delete_prop('BaseURL');
+            unlink "/var/cache/dnf/$name/$_" foreach qw(repomd.xml mirrorlist.txt);
+	}
+    }
+
+    # return unless we have a release version
+    return unless $SUBVER ne "";
+    my $curdate = strftime '%Y%m%d', localtime;
+    # return unless EOL is reached
+    return unless ( "$curdate"  >= "$curVersEOL");
+    my %equiv=(appstream=>'AppStream', baseos=> 'BaseOS', extras=>'extras' );
+    for my $name ( qw(appstream baseos extras) )
+    {
+        my $repo = $DB->get($name) or next;
+        my $rname = $equiv{$name} || $name; 
+        # setprop BaseURL  "https://dl.rockylinux.org/vault/rocky/$SUBVER/$rname/\$basearch/"
+        $repo->set_prop('BaseURL', "https://dl.rockylinux.org/vault/rocky/$SUBVER/$rname/\$basearch/");
+        # delprop MirrorList
+        $repo->set_prop('MirrorList', "disabled");
+    }
+}

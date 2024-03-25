@@ -1,0 +1,2 @@
+cachedir=/var/cache/dnf/$basearch/$releasever
+keepcache=0

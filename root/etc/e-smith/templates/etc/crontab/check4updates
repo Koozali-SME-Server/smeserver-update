@@ -1,0 +1,25 @@
+{
+    return "\n# dnf check for updates is disabled\n" unless $dnf{status} eq 'enabled';
+
+    my $freq = $dnf{check4updates} || 'daily';
+
+    my $min;
+    my $dom;
+    my $dow;
+
+    if ($freq eq 'weekly') {
+        $min = 22;
+        $dom = '*';
+        $dow = 0;
+    } elsif ($freq eq 'monthly') {
+        $min = 42;
+        $dom = 1;
+        $dow = '*';
+    } else {
+        $min = 2;
+        $dom = '*';
+        $dow = '*';
+    }
+    return "$min 4 $dom * $dow root "
+       . q{sleep $[ $RANDOM \\% 3600 ]; /sbin/e-smith/check4updates -m };
+}

@@ -1,0 +1,39 @@
+{
+    our $AutoInstallUpdates = $dnf{AutoInstallUpdates} || 'disabled';
+    $AutoInstallUpdates = ( $AutoInstallUpdates eq "disabled") ? "no" : "yes";
+    our $downloadonly = $dnf{DownloadOnly} || 'disabled';
+    $downloadonly = ($downloadonly eq "disabled") ? "no" : "yes";
+    our $check = $dnf{check4updates} || 'daily';
+    $check = ($check eq "disabled") ? "no" : "yes";
+    $check = ($downloadonly eq "yes" || $AutoInstallUpdates eq "yes" ) ? "yes" : $check;
+    $OUT = "";
+}
+[commands]
+#  What kind of upgrade to perform:
+# default                            = all available upgrades
+# security                           = only the security upgrades
+upgrade_type = default
+
+# Maximum time in seconds to wait until the system is on-line and able to
+# connect to remote repositories.
+network_online_timeout = 60
+
+# Whether updates should be downloaded when they are available, by
+# dnf-automatic.timer. notifyonly.timer, download.timer and
+# install.timer override this setting.
+download_updates = { $downloadonly }
+
+# Whether updates should be applied when they are available, by
+# dnf-automatic.timer. notifyonly.timer, download.timer and
+# install.timer override this setting.
+apply_updates = { $AutoInstallUpdates }
+
+# Maximum amout of time to randomly sleep, in minutes.  The program
+# will sleep for a random amount of time between 0 and random_sleep
+# minutes before running.  This is useful for e.g. staggering the
+# times that multiple systems will access update servers.  If
+# random_sleep is 0 or negative, the program will run immediately.
+# 6*60 = 360
+random_sleep = { $dnf{sleep} || '0' }
+
+

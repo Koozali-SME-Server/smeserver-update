@@ -1,0 +1,78 @@
+{
+    my $ydb = esmith::ConfigDB->open_ro('yum_repositories') 
+	or die "Couldn't open yum_repositories";
+
+    my $priority = $dnf{priority} || 'enabled';
+
+    $OUT = "\n";
+
+    for my $repos ( $ydb->get_all_by_prop('type' => 'repository') )
+    {
+	my %props = ($DB->get('dnf')->props(), $repos->props());
+
+	$OUT .= "[" . $repos->key . "]\n";
+
+        $OUT .= "enabled=" . (($repos->prop('status') eq 'enabled') ? 1 : 0)
+			 . "\n";
+
+	if ( exists $props{MetaLink} )
+	{
+	    $OUT .= 'metalink=' . $props{MetaLink} . "\n";
+	}
+        elsif ( ! exists $props{MirrorList} or $props{MirrorList} eq "disabled" )
+        {
+            $OUT .= 'baseurl=' . $props{BaseURL} . "\n";
+        }
+        else
+        {
+            $OUT .= 'mirrorlist=' . $props{MirrorList} . "\n";
+        }
+
+	for my $prop (qw(Name))
+	{
+	    $OUT .= lc($prop) . '=' . $props{$prop} . "\n";
+	}
+
+	for my $prop (qw(GPGCheck EnableGroups))
+	{
+	    $OUT .= lc($prop) . '=' . ($props{$prop} eq "yes" ? 1 : 0) . "\n";
+	}
+
+	if (exists $props{Exclude})
+	{
+	    $OUT .= "exclude=" . join(' ', split(/,/, $props{Exclude})) . "\n";
+	}	
+
+        if (exists $props{IncludePkgs})
+        {
+            $OUT .= "includepkgs=" . join(' ', split(/,/, $props{IncludePkgs})) . "\n";
+        }
+
+	if ( exists $props{GPGKey}) 
+	{
+	    $OUT .= "gpgkey" . '=' . $props{GPGKey} . "\n";
+	} 
+
+	if ($priority eq 'enabled' && exists $props{Priority})
+	{   
+	    $OUT .= "priority" . '=' . $props{Priority} . "\n";
+	} 
+	elsif ($priority eq 'enabled' &&  $repos->key =~ /^sme.*/)
+	{
+	    $OUT .= "priority=10\n";
+	}
+        elsif ($priority eq 'enabled' &&  ( $repos->key eq 'appstream' || $repos->key eq 'baseos' || $repos->key eq 'remi-safe'  || $repos->key eq 'remi-modular' ))
+        {
+            $OUT .= "priority=10\n";
+        }
+
+        if (exists $props{DeltaRpmPercentage})
+        {
+            my $deltarpmpercentage = $props{DeltaRpmPercentage};
+            $deltarpmpercentage = '0' if ($deltarpmpercentage eq 'disabled');
+            $OUT .= "deltarpm_percentage" . '=' . $deltarpmpercentage . "\n";
+        }
+
+	$OUT .= "\n";
+    }
+}

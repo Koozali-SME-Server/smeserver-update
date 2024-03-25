@@ -1,0 +1,10 @@
+{
+    for my $name ( qw(smecontribs) )
+    {
+        my $repo = $DB->get($name) or next;
+        #only migrate if restore from previous SME version, we do not want to override an admin setting for current version.
+        return unless $repo->prop('MirrorList') =~ m{/$name-1?[0789]{1}$};
+	$repo->set_prop('status', 'enabled')
+        $repo->set_prop('Visible', 'yes');
+    }
+}

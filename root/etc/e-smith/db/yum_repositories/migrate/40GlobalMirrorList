@@ -1,0 +1,30 @@
+{
+    for my $name ( qw(smeaddons smecontribs smedev smeextras smeos smetest 
+                      smeupdates smeupdates-testing) )
+    {
+	my $repo = $DB->get($name) or next;
+
+        my $mirrorlist = $repo->prop('MirrorList') || '';
+        my $baseurl =  $repo->prop('BaseURL') || '';
+
+        if ($mirrorlist =~ m{^file:///etc/yum.repos.d/mirrors-sme|/8/|/sme.*-8$} || $baseurl =~ m{/8/|/sme.*-8$})
+        {
+            $repo->delete_prop('MirrorList');
+            $repo->delete_prop('BaseURL');
+            unlink "/var/cache/dnf/$name/$_" foreach qw(repomd.xml mirrorlist.txt);
+            if ($repo->prop('status') eq 'enabled')
+            {
+                unlink "/home/e-smith/db/dnf_$_" foreach qw(available updates installed);
+            }
+        }
+
+        $repo->set_prop('MirrorList', "https://mirrorlist.koozali.org/mirrorlist/$name-11")
+            if $repo->prop('MirrorList') =~ m{^http://distro.ibiblio.org/pub/linux/distributions/smeserver};
+
+        $repo->set_prop('MirrorList', "http://mirrorlist.koozali.org/mirrorlist/$name-11")
+            if $repo->prop('MirrorList') =~ m{/$name-1?[0789]{1}$};
+
+        $repo->set_prop('MirrorList', "https://mirrorlist.koozali.org/mirrorlist/$name-11")
+            if $repo->prop('MirrorList') =~ m{^http://mirrorlist.contribs.org/mirrorlist/$name-11$};
+    }
+}

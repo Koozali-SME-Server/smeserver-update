@@ -1,0 +1,4 @@
+#dnf Koozali SME Server updater
+if $programname startswith "dnf_update_dbs"   then      /var/log/dnf/dnf-update.log
+& stop
+

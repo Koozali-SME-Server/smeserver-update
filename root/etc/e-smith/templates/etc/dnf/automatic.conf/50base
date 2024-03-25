@@ -1,0 +1,12 @@
+[base]
+# This section overrides dnf.conf
+
+# Use this to filter dnf core messages
+# -4: critical
+# -3: critical+errors
+# -2: critical+errors+warnings (default)
+debuglevel = -{ $dnf{Debug} || '2' }
+
+# Uncomment to auto-import new gpg keys (dangerous)
+# assumeyes = True
+

@@ -1,0 +1,15 @@
+/var/log/dnf/dnf.log {
+    missingok
+    notifempty
+    maxsize 1M
+    yearly
+    create 0600 root root
+}
+/var/log/dnf/dnf-update.log {
+    missingok
+    notifempty
+    maxsize 1M
+    weekly
+    create 0600 root root
+}
+

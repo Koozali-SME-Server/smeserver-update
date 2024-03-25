@@ -1,43 +1,37 @@
 #!/usr/bin/perl -w
 
 use esmith::Build::CreateLinks qw(:all);
-use esmith::Build::Backup qw(:all);
+use File::Basename;
+use File::Path;
 
-# our event specific for updating with yum without reboot
-$event = 'smeserver-update-update';
-#add here the path to your templates needed to expand
-#see the /etc/systemd/system-preset/49-koozali.preset should be present for systemd integration on all you yum update event
-
-# Maybe need ths in here as well:
-# /etc/dar/DailyBackup.dcf - if backup requested
-
-foreach my $file (qw(
-        /etc/systemd/system-preset/49-koozali.preset
-))
+foreach my $file (qw(/etc/dnf/dnf.conf /etc/dnf/protected.d/smeserver.conf
+                     /etc/yum.smerepos.d/sme-base.repo /etc/dnf/automatic.conf))
 {
-    templates2events( $file, $event );
-};
-#action needed in case we have a systemd unit
-event_link('systemd-default', $event, '10');
-event_link('systemd-reload', $event, '50');
+    templates2events($file, qw(dnf-modify bootstrap-console-save smeserver-update-update));
+}
 
-#services we might need to restart
-#event_services($event, 'xxxx' => 'restart', 'yyyy' => 'restart');
+templates2events("/etc/crontab", "dnf-modify");
 
-#Backup contrib files
-# backup_includes("smeserver-update", qw(
-    # files(s) to be backed up
-#));
+for ( qw(install remove update) )
+{
+    event_link("dnf-action", "dnf-$_", "20");
+}
 
-#Other possible entries:
-#Server manager entry
-#panel_link("smeserver-update", 'manager');
-#Events to smeserver-update
-#$event = 'smeserver-update-smeserver-update';
-# safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/smeserver-update");
-# templates2events("/etc/smeserver-update/smeserver-update.conf", $event);
+safe_symlink("restart", "root/etc/e-smith/events/dnf-modify/services2adjust/yum");
 
+for ( qw(bootstrap-console-save dnf-update smeserver-update-update) )
+{
+    event_link("rpm-import-keys", $_, "10");
+}
 
+my $event= "smeserver-update-update";
+# systemd-specific action mandatory for this package-update event
+event_link("systemd-reload", $event, "89");
+event_link("systemd-default", $event, "88");
+templates2events("/etc/rsyslog.conf",$event);
+safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/rsyslog");
 
-
-
+#--------------------------------------------------
+# functions for manager panel
+#--------------------------------------------------
+panel_link("dnf", "manager");

@@ -1,0 +1,34 @@
+#! /bin/bash
+
+mkdir -p /tmp/check4contribsupdates.$$
+TMPFILE=`mktemp /tmp/check4contribsupdates.$$/XXXXXXXXXX` || exit 1
+TMP1=`mktemp /tmp/check4contribsupdates.$$/XXXXXXXXXX` || exit 1
+
+MAILADDR=admin-dnf
+
+dnf -e 0 -d 0 check-update --disablerepo=* --enablerepo=smecontribs > $TMP1
+if [ $? = 100 ]; then
+  echo -e "===\n=== dnf reports available updates for Contribs:\n===" >> $TMPFILE
+  cat $TMP1 >> $TMPFILE
+  echo -e "\n=== To apply *all* these updates, log on to your server  command line and
+=== enter the following command:
+    # dnf update --enablerepo=smecontribs" >> $TMPFILE
+  echo -e "\n=== Alternatively you can update packages one at a time using the command:
+=== (replace packagename with contrib name eg smeserver-wbl)
+    # dnf update --enablerepo=smecontribs packagename
+=== if needed, you might also be asked to run after dnf:
+    # signal-event post-upgrade
+    # signal-event reboot\n" >> $TMPFILE
+fi
+
+if [ -s $TMPFILE ]; then
+  if [ "$1" = "-m" ]; then
+    mail -s "SME Server Contribs Updates available for `hostname`" $MAILADDR < $TMPFILE
+  else
+    echo "SME Server Contribs Updates available for `hostname`"
+    cat $TMPFILE
+  fi
+fi
+
+rm -f $TMPFILE $TMP1
+rm -fr /tmp/check4contribsupdates.*
