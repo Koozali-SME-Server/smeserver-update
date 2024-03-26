@@ -71,16 +71,17 @@ mkdir -p root/etc/yum.smerepos.d
 
 %changelog
 * Mon Mar 25 2024 Jean-Philippe Pialasse <jpp@koozali.org> 2.6.2-9.sme
-- initial release of smeserver-update based on smeserver-yum
-  * tidy centos repos, add rocky repos, add support for metalinks,
-  tidy most references to yum (except manager), tidy config and templates
-  * yum-cron moved to dnf-automatic, 
+- initial release of smeserver-update based on smeserver-yum [SME: 12114]
+  * tidy centos repos, add rocky repos, add support for metalinks
+  * tidy most references to yum (except manager), tidy config and templates
   * rename yum_** esmith db, except yum_repositories 
+  * renamed yum.service to dnf.service
+- adapt dnf with available plugins and new config [SME: 12527]
   * moved yum.conf to dnf.conf with deltarpm , fastestmirror support
   * add requirement for dnf post-transaction-actions
   * adapt setting for priorities
-  * renamed yum.service to dnf.service
-  * TODO smeserver.py plugin
+- yum-cron moved to dnf-automatic [SME: 12528]
+- TODO smeserver.py plugin
 
 * Fri Mar 15 2024 Jean-Philippe Pialasse <jpp@koozali.org> 2.6.2-8.sme
 - disable brp-python-bytecompile [SME: 12511]
