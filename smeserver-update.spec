@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 3
+%define release 4
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -11,7 +11,7 @@ Source: %{name}-%{version}.tar.xz
 
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
-Provides: smeserver-yum-%{version}-%{release}
+Provides: smeserver-yum
 Obsoletes: smeserver-yum < %{version}-%{release}
 Requires: smeserver-formmagick
 Requires: smeserver-base
@@ -70,7 +70,7 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
-* Mon Mar 25 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-3.sme
+* Mon Mar 25 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-4.sme
 - initial release of smeserver-update based on smeserver-yum [SME: 12114]
   * tidy centos repos, add rocky repos, add support for metalinks
   * tidy most references to yum (except manager), tidy config and templates
