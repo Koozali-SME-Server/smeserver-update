@@ -1,8 +1,8 @@
 %define name smeserver-update
 Summary: Koozali SME Server rpm updater
 Name: %{name}
-%define version 2.6.2
-%define release 9
+%define version 11.0.0
+%define release 3
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -70,7 +70,7 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
-* Mon Mar 25 2024 Jean-Philippe Pialasse <jpp@koozali.org> 2.6.2-9.sme
+* Mon Mar 25 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-3.sme
 - initial release of smeserver-update based on smeserver-yum [SME: 12114]
   * tidy centos repos, add rocky repos, add support for metalinks
   * tidy most references to yum (except manager), tidy config and templates
@@ -82,6 +82,12 @@ mkdir -p root/etc/yum.smerepos.d
   * adapt setting for priorities
 - yum-cron moved to dnf-automatic [SME: 12528]
 - TODO smeserver.py plugin
+
+* Sat Mar 23 2024 Brian Read <brianr@koozali.org> 11.0.0-2.sme
+- Change Requires: e-smith- to Requires:smeserver-
+
+* Sat Mar 23 2024 Brian Read <brianr@koozali.org> 11.0.0-1.sme
+- Update Release and Version to base version and 1st release for SME11 [SME: 12518]
 
 * Fri Mar 15 2024 Jean-Philippe Pialasse <jpp@koozali.org> 2.6.2-8.sme
 - disable brp-python-bytecompile [SME: 12511]
