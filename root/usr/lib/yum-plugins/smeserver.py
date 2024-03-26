@@ -21,7 +21,7 @@ dnf_update_dbs = events_path + '/actions/yum-update-dbs'
 Conflicts=yum-cron.service dnf-automatic-notifyonly.service dnf-automatic.service
 signal_event = '/sbin/e-smith/signal-event'
 config_set = '/sbin/e-smith/config'
-status_file  = '/var/run/yum.status'
+status_file  = '/var/cache/dnf/dnf.status'
 expand_template = '/sbin/e-smith/expand-template'
 service = '/sbin/e-smith/service'
 
@@ -432,8 +432,8 @@ def posttrans_hook(conduit):
     os.spawnl(os.P_WAIT, systemctl, systemctl, 'restart', 'yum')
 
 def close_hook(conduit):
-    if ourfile and os.path.isfile('/var/run/yum.status'):
-        os.unlink('/var/run/yum.status')
+    if ourfile and os.path.isfile(status_file):
+        os.unlink(status_file)
 
     if smechange:
 	print "\nThe following updates require a server reboot:\n" + str(smechangelist.keys()) 

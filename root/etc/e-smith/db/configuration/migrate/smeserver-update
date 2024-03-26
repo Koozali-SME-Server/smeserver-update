@@ -23,6 +23,11 @@
     if ($check4contribsupdates) {
        $DB->get('dnf')->delete_prop('check4contribsupdates');
     }
+    my $output_width = $DB->get_prop('dnf','output_width');
+    if ($output_width) {
+       $DB->get('dnf')->delete_prop('output_width');
+    }
+
 
 }
 

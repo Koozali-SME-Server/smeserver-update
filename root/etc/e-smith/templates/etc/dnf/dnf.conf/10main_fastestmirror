@@ -1,0 +1,1 @@
+fastestmirror={( ( $dnf{fastestmirror} ||'enabled') eq "enabled")?1:0;}

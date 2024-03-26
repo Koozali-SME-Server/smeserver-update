@@ -11,6 +11,8 @@ Source: %{name}-%{version}.tar.xz
 
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
+Provides: smeserver-yum-%{version}-%{release}
+Obsoletes: smeserver-yum < %{version}-%{release}
 Requires: smeserver-formmagick
 Requires: smeserver-base
 Requires: perl(CGI::FormMagick) >= 0.91-26
@@ -49,13 +51,12 @@ mkdir -p root/etc/yum.smerepos.d
 (cd root   ; /usr/bin/find . -depth -print | /bin/cpio -dump $RPM_BUILD_ROOT)
 /bin/rm -f %{name}-%{version}-filelist
 /sbin/e-smith/genfilelist \
-    --file '/sbin/e-smith/yum_update_dbs' 'attr(0700,root,root)' \
-    --file '/sbin/e-smith/yum' 'attr(0755,root,root)' \
+    --file '/sbin/e-smith/dnf_update_dbs' 'attr(0700,root,root)' \
     --file '/sbin/e-smith/check4updates' 'attr(0755,root,root)' \
     --file '/sbin/e-smith/check4contribsupdates' 'attr(0755,root,root)' \
     --file '/sbin/e-smith/yumdownloadonly' 'attr(0755,root,root)' \
-    --file '/etc/cron.daily/smeserver-yum' 'attr(0700,root,root)' \
-    --dir /var/log/yum 'attr(2750,root,root)' \
+    --file '/etc/cron.daily/smeserver-update' 'attr(0700,root,root)' \
+    --dir /var/log/dnf 'attr(2750,root,root)' \
     $RPM_BUILD_ROOT > %{name}-%{version}-%{release}-filelist
 
 %clean
@@ -71,18 +72,15 @@ mkdir -p root/etc/yum.smerepos.d
 %changelog
 * Mon Mar 25 2024 Jean-Philippe Pialasse <jpp@koozali.org> 2.6.2-9.sme
 - initial release of smeserver-update based on smeserver-yum
-  updated requirements
-  TODO tidy centos repos
-  TODO add rocky repos
-  TODO tidy reference yo yum
-  TODO yum-cron alternative for updates list and auto  update
-  TODO rename yum_** esmith db 
-  TODO deltarpm tidy
-  TODO adapt setting for fastestmirror
-  TODO adapt settings for post-transaction-actions
-  TODO adapt setting for priorities
-  TODO adapt /etc/yum.conf  -> /etc/dnf/dnf.conf
-  TODO rename yum.service ?
+  * tidy centos repos, add rocky repos, add support for metalinks,
+  tidy most references to yum (except manager), tidy config and templates
+  * yum-cron moved to dnf-automatic, 
+  * rename yum_** esmith db, except yum_repositories 
+  * moved yum.conf to dnf.conf with deltarpm , fastestmirror support
+  * add requirement for dnf post-transaction-actions
+  * adapt setting for priorities
+  * renamed yum.service to dnf.service
+  * TODO smeserver.py plugin
 
 * Fri Mar 15 2024 Jean-Philippe Pialasse <jpp@koozali.org> 2.6.2-8.sme
 - disable brp-python-bytecompile [SME: 12511]

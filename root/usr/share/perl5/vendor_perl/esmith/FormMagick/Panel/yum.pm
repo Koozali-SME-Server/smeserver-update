@@ -286,7 +286,7 @@ sub print_yum_status_page
     my ($fm) = @_;
     my @yum_status;
 
-    if (open(YUM_STATUS, "</var/run/yum.status")) {
+    if (open(YUM_STATUS, "</var/cache/dnf/dnf.status")) {
        @yum_status = <YUM_STATUS>;
        close(YUM_STATUS);
     }
