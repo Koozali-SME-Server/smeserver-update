@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 5
+%define release 6
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -68,9 +68,12 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
-* Wed Mar 27 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-5.sme
+* Wed Apr 04 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-6.sme
 - rewrite smeserver.py plugin [SME: 12113]
 - fix migrate template 39VisibleSmeContribs, 45RockyEOL [SME: 12549]
+
+* Thu Apr 04 2024 Brian Read <brianr@koozali.org> 11.0.0-5.sme
+- Set license file to GPL2.0  [SME: 12577]
 
 * Mon Mar 25 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-4.sme
 - initial release of smeserver-update based on smeserver-yum [SME: 12114]
