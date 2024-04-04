@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 4
+%define release 5
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -23,9 +23,7 @@ Requires: dnf-automatic
 Requires: python3-dnf-plugins-core
 Requires: python3-dnf-plugin-post-transaction-actions
 Requires: python3-dnf-plugin-versionlock
-#Requires: yum-plugin-fastestmirror
-#Requires: yum-plugin-priorities
-#Requires: yum-plugin-post-transaction-actions
+Requires: perl(File::Slurp)
 Requires: mailx
 BuildRequires: smeserver-devtools 
 BuildRequires: python3
@@ -70,6 +68,10 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Wed Mar 27 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-5.sme
+- rewrite smeserver.py plugin [SME: 12113]
+- fix migrate template 39VisibleSmeContribs, 45RockyEOL [SME: 12549]
+
 * Mon Mar 25 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-4.sme
 - initial release of smeserver-update based on smeserver-yum [SME: 12114]
   * tidy centos repos, add rocky repos, add support for metalinks
