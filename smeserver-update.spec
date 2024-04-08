@@ -72,7 +72,7 @@ mkdir -p root/etc/yum.smerepos.d
 - fix python error in dnf plugin [SME: 12601]
 - fix server error in old manager [SME: 12602]
 
-* Wed Apr 04 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-6.sme
+* Thu Apr 04 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-6.sme
 - rewrite smeserver.py plugin [SME: 12113]
 - fix migrate template 39VisibleSmeContribs, 45RockyEOL [SME: 12549]
 
