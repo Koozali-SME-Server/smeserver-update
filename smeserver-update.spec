@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 7
+%define release 8
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -68,6 +68,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Tue Apr 16 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-8.sme
+- fix python error in dnf plugin [SME: 12631]
+
 * Mon Apr 08 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-7.sme
 - fix python error in dnf plugin [SME: 12601]
 - fix server error in old manager [SME: 12602]
