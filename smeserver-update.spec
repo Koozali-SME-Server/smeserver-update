@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 8
+%define release 9
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -68,6 +68,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Wed Apr 17 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-9.sme
+- fix RuntimeError: dictionary changed size during iteration [SME: 12633]
+
 * Tue Apr 16 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-8.sme
 - fix python error in dnf plugin [SME: 12631]
 
