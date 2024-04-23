@@ -5,7 +5,7 @@
 # -4: critical
 # -3: critical+errors
 # -2: critical+errors+warnings (default)
-debuglevel = -{ $dnf{Debug} || '2' }
+debuglevel = { $dnf{Debug} || '2' }
 
 # Uncomment to auto-import new gpg keys (dangerous)
 # assumeyes = True

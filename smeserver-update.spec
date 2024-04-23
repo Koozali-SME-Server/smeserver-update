@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 10
+%define release 11
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -68,6 +68,11 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Tue Apr 23 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-11.sme
+- fix debuglevel=-2 not allowed [SME: 12637]
+- force modules needed for core [SME: 12618]
+  php:remi-8.3 perl:5.26 python36:3.6 mariadb:10.5
+
 * Thu Apr 18 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-10.sme
 - fix RuntimeError: dictionary changed size during iteration [SME: 12633]
 

@@ -31,6 +31,8 @@ event_link("systemd-default", $event, "88");
 templates2events("/etc/rsyslog.conf",$event);
 safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/rsyslog");
 
+event_link("dnf_modules", 'post-install', "70");
+
 #--------------------------------------------------
 # functions for manager panel
 #--------------------------------------------------
