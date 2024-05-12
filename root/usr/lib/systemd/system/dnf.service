@@ -4,6 +4,7 @@ After=network-pre.target networking.service
 
 [Service]
 Type=forking
+SyslogIdentifier=dnf_update_dbs
 ExecStartPre=/sbin/e-smith/service-status dnf
 ExecStart=/sbin/e-smith/dnf_update_dbs
 TimeoutSec=0

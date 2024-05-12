@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 11
+%define release 12
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -68,6 +68,11 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Sat May 11 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-12.sme
+- revert plugin changes to force modules [SME: 12618]
+- tag service to limit log noise in message [SME: 12668]
+- sort nut service to restart [SME: 12662]
+
 * Tue Apr 23 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-11.sme
 - fix debuglevel=-2 not allowed [SME: 12637]
 - force modules needed for core [SME: 12618]

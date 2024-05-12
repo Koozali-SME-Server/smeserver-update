@@ -1,4 +1,5 @@
-#dnf Koozali SME Server updater
+#dnf Koozali SME Server updater, dnf automatic and dnf makecache
 if $programname startswith "dnf_update_dbs"   then      /var/log/dnf/dnf-update.log
 & stop
-
+if $programname startswith "dnf-automatic" then stop
+if $programname startswith "dnf-makecache" theb stop
