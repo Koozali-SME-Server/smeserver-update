@@ -17,7 +17,7 @@ for ( qw(install remove update) )
     event_link("dnf-action", "dnf-$_", "20");
 }
 
-safe_symlink("restart", "root/etc/e-smith/events/dnf-modify/services2adjust/yum");
+safe_symlink("restart", "root/etc/e-smith/events/dnf-modify/services2adjust/dnf");
 
 for ( qw(bootstrap-console-save dnf-update smeserver-update-update) )
 {
