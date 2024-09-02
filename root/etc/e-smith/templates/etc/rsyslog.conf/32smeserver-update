@@ -2,4 +2,4 @@
 if $programname startswith "dnf_update_dbs"   then      /var/log/dnf/dnf-update.log
 & stop
 if $programname startswith "dnf-automatic" then stop
-if $programname startswith "dnf-makecache" theb stop
+if $programname startswith "dnf-makecache" then stop

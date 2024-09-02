@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 13
+%define release 14
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -68,6 +68,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Mon Sep 02 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-14.sme
+- fix typo in rsyslog.conf [SME: 12668]
+
 * Wed Aug 21 2024 Brian Read <brianr@koozali.org> 11.0.0-13.sme
 - Fix error in createlinks - link to restart yum should be dnf [SME: 12723]
 
