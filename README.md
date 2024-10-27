@@ -6,7 +6,7 @@ SMEServer Koozali developed git repo for smeserver-update core
 <br />https://wiki.koozali.org/smeserver-update
 
 ## Bugzilla
-Show list of outstanding bugs: [here](https://bugs.koozali.org/buglist.cgi?component=smeserver-update&product=SME%20Server%2011.X&query_format=advanced&limit=0&bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&bug_status=CONFIRMED)
+Show list of outstanding bugs: [here](https://bugs.koozali.org/buglist.cgi?quicksearch=smeserver-update)
 
 ## Description
 
