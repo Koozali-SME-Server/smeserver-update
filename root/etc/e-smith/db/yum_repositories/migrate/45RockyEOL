@@ -40,8 +40,8 @@
     my $curdate = strftime '%Y%m%d', localtime;
     # return unless EOL is reached
     return unless ( "$curdate"  >= "$curVersEOL");
-    my %equiv=(appstream=>'AppStream', baseos=> 'BaseOS', extras=>'extras' );
-    for my $name ( qw(appstream baseos extras) )
+    my %equiv=(appstream=>'AppStream', baseos=> 'BaseOS', extras=>'extras', powertools=>'PowerTools' );
+    for my $name ( qw(appstream baseos extras powertools) )
     {
         my $repo = $DB->get($name) or next;
         my $rname = $equiv{$name} || $name; 

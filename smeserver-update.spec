@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 14
+%define release 15
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -68,6 +68,10 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Fri Nov 15 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-15.sme
+- add PowerTools repo needed for openldap-server [SME: 12790]
+- add SME 11 gpg key
+
 * Mon Sep 02 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-14.sme
 - fix typo in rsyslog.conf [SME: 12668]
 
