@@ -1,5 +1,5 @@
 {
-    for my $name ( qw(addons contrib dungog fws base centosplus fasttrack updates) )
+    for my $name ( qw(addons contrib dungog fws base centosplus fasttrack updates smeupdates) )
     {
     	my $repo = $DB->get($name);
     	$repo->delete if $repo;

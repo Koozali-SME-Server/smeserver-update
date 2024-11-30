@@ -1,6 +1,6 @@
 {
-    for my $name ( qw(smeaddons smecontribs smedev smeextras smeos smetest 
-                      smeupdates smeupdates-testing) )
+    for my $name ( qw(smeaddons smecontribs smecontribs-testing smedev smeextras smeos smetest 
+                      smeupdates-testing) )
     {
 	my $repo = $DB->get($name) or next;
 
