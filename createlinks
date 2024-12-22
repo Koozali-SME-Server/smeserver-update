@@ -24,14 +24,17 @@ for ( qw(bootstrap-console-save dnf-update smeserver-update-update) )
     event_link("rpm-import-keys", $_, "10");
 }
 
+for ( qw(post-install post-upgrade console-save))
+{
+   event_link("dnf_modules", $_, "70");
+}
+
 my $event= "smeserver-update-update";
 # systemd-specific action mandatory for this package-update event
 event_link("systemd-reload", $event, "89");
 event_link("systemd-default", $event, "88");
 templates2events("/etc/rsyslog.conf",$event);
 safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/rsyslog");
-
-event_link("dnf_modules", 'post-install', "70");
 
 #--------------------------------------------------
 # functions for manager panel

@@ -180,7 +180,7 @@ sub get_status
 {
     my ($fm, $prop, $localise) = @_;
 
-    my $status = $db->get_prop("yum", $prop) || 'disabled';
+    my $status = $db->get_prop("dnf", $prop) || 'disabled';
 
     return $status unless $localise;
 
@@ -196,7 +196,7 @@ sub change_settings
 			PackageFunctions
             	) )
     {
-	$db->set_prop('yum', $param, $q->param("yum_$param"));
+	$db->set_prop('dnf', $param, $q->param("yum_$param"));
     }
 
     my $check4updates = $q->param("yum_check4updates");
@@ -204,21 +204,21 @@ sub change_settings
 
     if ($check4updates ne 'disabled') { $status = 'enabled'; }
 
-    $db->set_prop('yum', 'check4updates', $check4updates);
+    $db->set_prop('dnf', 'check4updates', $check4updates);
 
     my $deltarpm = $q->param("yum_DeltaRpmProcess");
-    $db->set_prop('yum', 'DeltaRpmProcess', $deltarpm);
+    $db->set_prop('dnf', 'DeltaRpmProcess', $deltarpm);
 
     my $downloadonly = $q->param("yum_DownloadOnly");
     if ($downloadonly ne 'disabled') { $status = 'enabled'; }
 
-    $db->set_prop('yum', 'DownloadOnly', $downloadonly);
+    $db->set_prop('dnf', 'DownloadOnly', $downloadonly);
 
     my $AutoInstallUpdates = $q->param("yum_AutoInstallUpdates");
     if ($AutoInstallUpdates ne 'disabled') { $status = 'enabled'; }
 
-    $db->set_prop('yum', 'AutoInstallUpdates', $AutoInstallUpdates);
-    $db->set_prop('yum', 'status', $status);
+    $db->set_prop('dnf', 'AutoInstallUpdates', $AutoInstallUpdates);
+    $db->set_prop('dnf', 'status', $status);
 
     my %selected = map {$_ => 1} $q->param('SelectedRepositories');
 

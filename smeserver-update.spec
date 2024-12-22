@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 16
+%define release 17
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -68,6 +68,11 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Sat Dec 21 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-17.sme
+- set our prefered modules on different events and dnf.service run [SME: 12618]
+- update old manager to use dnf key instead of yum for settings [SME: 12831]
+- clean rocky yum_repositories property Name content  [SME: 12806]
+
 * Sat Nov 30 2024 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-16.sme
 -  remove smeupdates and add smecontribs-testing  [SME: 12804]
 
