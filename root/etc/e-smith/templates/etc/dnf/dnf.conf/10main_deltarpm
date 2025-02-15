@@ -1,6 +1,6 @@
 {
 my $deltaRpm = $dnf{DeltaRpmProcess} || 'disabled';
 $deltaRpm = '0' if ($deltaRpm eq 'disabled');
-$deltaRpm = '2' if ($deltaRpm eq 'enabled');
+$deltaRpm = '1' if ($deltaRpm eq 'enabled');
 $OUT .= "deltarpm=$deltaRpm";
 }
