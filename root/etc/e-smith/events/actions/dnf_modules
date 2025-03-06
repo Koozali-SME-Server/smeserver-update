@@ -6,7 +6,7 @@ base.read_all_repos()
 base.fill_sack()
 
 module_base = dnf.module.module_base.ModuleBase(base)
-module_base.switch_to(['php:remi-8.3'])
+module_base.switch_to(['php:remi-8.4'])
 module_base.switch_to(['perl:5.26'])
 module_base.switch_to(['python36:3.6'])
 module_base.switch_to(['mariadb:10.5'])
