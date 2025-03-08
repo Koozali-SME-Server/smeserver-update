@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 19
+%define release 20
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -68,6 +68,10 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Sat Mar 08 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-20.sme
+- deactivate mariadb 10.5 module [SME: 12955]
+- add mariadb gpg key [SME: 12955]
+
 * Wed Mar 05 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-19.sme
 - set module php 84 [SME: 12952]
 - remove openfusion repo [SME: 12882]
