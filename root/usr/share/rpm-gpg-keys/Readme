@@ -1,0 +1,4 @@
+Here you can place gpg signing key for rpm you want to install.
+All files need to :
+- start with RPM-GPG-KEY
+- contain only one signing key
