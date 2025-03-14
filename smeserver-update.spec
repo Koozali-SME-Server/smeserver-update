@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 21
+%define release 22
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -68,6 +68,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Fri Mar 14 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-22.sme
+- deactivate mariadb 10.5 module (do it on update) [SME: 12955]
+  
 * Wed Mar 12 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-21.sme
 - fix not all gpg keys are imported [SME: 12960]
 

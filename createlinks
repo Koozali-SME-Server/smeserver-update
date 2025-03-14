@@ -24,7 +24,7 @@ for ( qw(bootstrap-console-save dnf-update smeserver-update-update) )
     event_link("rpm-import-keys", $_, "10");
 }
 
-for ( qw(post-install post-upgrade console-save))
+for ( qw(smeserver-update-update post-install post-upgrade console-save))
 {
    event_link("dnf_modules", $_, "70");
 }
