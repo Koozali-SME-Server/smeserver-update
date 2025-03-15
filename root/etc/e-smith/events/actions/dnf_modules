@@ -1,14 +1,47 @@
-#!/usr/bin/python3
-import dnf
+#!/bin/bash
+#----------------------------------------------------------------------
+# copyright (C) 2025 Koozali Foundation Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
+#----------------------------------------------------------------------
 
-base = dnf.Base()
-base.read_all_repos()
-base.fill_sack()
+# set mariadb as disabled, as we use rpm directly from MariaDB
+printf '[mariadb]
+name=mariadb
+stream=
+profiles=
+state=disabled' | crudini --merge /etc/dnf/modules.d/mariadb.module
 
-module_base = dnf.module.module_base.ModuleBase(base)
-module_base.switch_to(['php:remi-8.4'])
-module_base.switch_to(['perl:5.26'])
-module_base.switch_to(['python36:3.6'])
-module_base.disable(['mariadb:10.5'])
+# set perl 5.26
+printf '[perl]
+name=perl
+stream=5.26
+profiles=
+state=enabled' | crudini --merge /etc/dnf/modules.d/perl.module
 
-base.do_transaction()
+# set php module to our default
+printf '[php]
+name=php
+stream=remi-8.4
+profiles=
+state=enabled' | crudini --merge /etc/dnf/modules.d/php.module php
+
+# set python to 3.6
+printf '[python36]
+name=python36
+stream=3.6
+profiles=
+state=enabled' | crudini --merge /etc/dnf/modules.d/python36.module
+
