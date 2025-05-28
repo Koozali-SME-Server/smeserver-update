@@ -8,6 +8,7 @@ SyslogIdentifier=dnf_update_dbs
 ExecStartPre=-/etc/e-smith/events/actions/dnf_modules
 ExecStartPre=/sbin/e-smith/service-status dnf
 ExecStart=/sbin/e-smith/dnf_update_dbs
+ExecStartPost=/etc/e-smith/events/actions/rpm-import-keys
 TimeoutSec=0
 RemainAfterExit=yes
 
