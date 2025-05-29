@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 24
+%define release 25
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -69,6 +69,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Wed May 28 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-25.sme
+- MariaDB restart on update [SME: 13019]
+
 * Wed May 28 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-24.sme
 - fix not all gpg keys are imported during dnf transaction [SME: 13010]
 
