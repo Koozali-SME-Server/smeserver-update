@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 25
+%define release 26
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -11,6 +11,7 @@ Source: %{name}-%{version}.tar.xz
 
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
+Requires: yum >= 4.7.0
 Provides: smeserver-yum
 Obsoletes: smeserver-yum < %{version}-%{release}
 Requires: smeserver-formmagick
@@ -69,6 +70,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Wed Aug 27 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-26.sme
+- require yum exec for backward compatibility  [SME: 13102]
+
 * Wed May 28 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-25.sme
 - MariaDB restart on update [SME: 13019]
 
