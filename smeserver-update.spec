@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 26
+%define release 27
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -70,6 +70,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Thu Sep 11 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-27.sme
+- set stream for redis module to remi-7.2 [SME: 13138]
+
 * Wed Aug 27 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-26.sme
 - require yum exec for backward compatibility  [SME: 13102]
 

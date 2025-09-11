@@ -45,3 +45,9 @@ stream=3.6
 profiles=
 state=enabled' | crudini --merge /etc/dnf/modules.d/python36.module
 
+# set redis 7.2
+printf '[redis]
+name=redis
+stream=remi-7.2
+profiles=
+state=enabled' | crudini --merge /etc/dnf/modules.d/redis.module
