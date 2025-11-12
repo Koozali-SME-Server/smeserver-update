@@ -10,10 +10,10 @@ MAILADDR=admin-dnf
 DATE=$(date +%Y%m%d)
 if [ $DATE -ge "20290531" ]; then
   echo -e "===\n=== URGENT NOTICE:">> $TMPFILE
-  echo -e "=== As per June 30th 2024, SME Server 10 is obsolete, and potentially INSECURE.">> $TMPFILE
+  echo -e "=== As per May 31st 2029, SME Server 11 is obsolete, and potentially INSECURE.">> $TMPFILE
   echo -e "=== Failure to upgrade may lead to the compromise of this server.">> $TMPFILE
   echo -e "=== NO support will be offered for any issue found with this installed version.">> $TMPFILE
-  echo -e "=== Please migrate IMMEDIATELY to Koozali SME Server 11 or higher version." >> $TMPFILE
+  echo -e "=== Please migrate IMMEDIATELY to Koozali SME Server 12 or higher version." >> $TMPFILE
   echo -e "=== Visit https://wiki.koozali.org/SME_Server:Download \n===" >> $TMPFILE
 fi
 

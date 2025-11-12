@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 31
+%define release 32
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -70,6 +70,10 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Tue Nov 11 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-32.sme
+- wrong date in EOL message [SME: 13285]
+- fix epel repo name [SME: 12806]
+
 * Mon Oct 06 2025 Brian Read <brianr@koozali.org> 11.0.0-31.sme
 - Add in locale2-conf to SM2 panel detected code [SME: 13178]
 
