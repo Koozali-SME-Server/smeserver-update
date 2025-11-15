@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 32
+%define release 33
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -70,6 +70,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Fri Nov 14 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-33.sme
+- add needed module for contribs [SME: 13296]
+
 * Tue Nov 11 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-32.sme
 - wrong date in EOL message [SME: 13285]
 - fix epel repo name [SME: 12806]

@@ -51,3 +51,44 @@ name=redis
 stream=remi-7.2
 profiles=
 state=enabled' | crudini --merge /etc/dnf/modules.d/redis.module
+
+# set virt
+printf '[virt]
+name=virt
+stream=rhel
+profiles=
+state=enabled' | crudini --merge /etc/dnf/modules.d/virt.module
+
+# set perl-DBD-MySQL
+printf '[perl-DBD-MySQL]
+name=perl-DBD-MySQL
+stream=4.046
+profiles=
+state=enabled' | crudini --merge /etc/dnf/modules.d/perl-DBD-MySQL.module
+
+printf '[perl-DBI]
+name=perl-DBI
+stream=1.641
+profiles=
+state=enabled' | crudini --merge /etc/dnf/modules.d/perl-DBI.module
+
+# set composer
+printf '[composer]
+name=composer
+stream=2
+profiles=
+state=enabled' | crudini --merge /etc/dnf/modules.d/composer.module
+
+# set container-tools
+printf '[container-tools]
+name=container-tools
+stream=rhel8
+profiles=
+state=enabled' | crudini --merge /etc/dnf/modules.d/container-tools.module
+
+# set squid
+printf '[squid]
+name=squid
+stream=4
+profiles=
+state=enabled' | crudini --merge /etc/dnf/modules.d/squid.module
