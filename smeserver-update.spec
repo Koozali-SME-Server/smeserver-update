@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 33
+%define release 34
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -70,6 +70,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Wed Dec 10 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-34.sme
+- reload-or-restart smanager if routes are updated [SME: 13379]
+
 * Fri Nov 14 2025 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-33.sme
 - add needed module for contribs [SME: 13296]
 
