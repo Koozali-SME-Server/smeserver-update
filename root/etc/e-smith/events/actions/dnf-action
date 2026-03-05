@@ -17,51 +17,76 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
 #----------------------------------------------------------------------
-
 use strict;
 use warnings;
 use esmith::ConfigDB;
 
 use constant YUM_CMD => qw(/usr/bin/dnf -d 2 -e 2 -y);
 
+my $EXIT = 0;
+
+END {
+    my $ts = scalar localtime;
+    print "\n---- dnf event finished at $ts (exit=$EXIT) ----\n";
+}
+
+sub run_or_exit {
+    my (@cmd) = @_;
+    print "Running: @cmd\n";
+
+    my $ret = system(@cmd);
+
+    if ($ret == -1) {
+        print "FAILED to exec: $!\n";
+        $EXIT = 127;
+        exit $EXIT;
+    }
+
+    if ($ret & 127) {
+        my $sig = ($ret & 127);
+        print "FAILED: died from signal $sig\n";
+        $EXIT = 128 + $sig;
+        exit $EXIT;
+    }
+
+    my $rc = $ret >> 8;
+    if ($rc != 0) {
+        print "FAILED: exit=$rc\n";
+        $EXIT = $rc;
+        exit $EXIT;
+    }
+
+    print "OK\n";
+    return 1;
+}
+
 my $db = esmith::ConfigDB->open or die "Couldn't open ConfigDB\n";
 
 my $event = $ARGV[0];
-
 my $function = $event;
 $function =~ s/dnf-//;
 
-die "Unknown function $function\n" 
+die "Unknown function $function\n"
     unless ($function =~ /install|update|remove/);
 
 my $log_file = "/var/log/dnf/dnf.log." . time();
 $db->set_prop('dnf', 'LogFile', $log_file);
+$db->reload();
 
-open STDOUT, '>', "$log_file" or die "Can't redirect STDOUT: $!";
+open STDOUT, '>', $log_file or die "Can't redirect STDOUT: $!";
 open STDERR, ">&STDOUT"     or die "Can't dup STDOUT: $!";
 
-# Make dnf send output immediately, so server-manager sees progress
 $ENV{PYTHONUNBUFFERED} = 1;
 
-# XXX - FIXME - For groupremove, we need to do a grouplist on the group
-# and then work out what to do
+my @groups   = split(',', ($db->get_prop_and_delete('dnf', 'SelectedGroups')   || ''));
+my @packages = split(',', ($db->get_prop_and_delete('dnf', 'SelectedPackages') || ''));
 
-my @groups   = split(',',
-            ($db->get_prop_and_delete('dnf', 'SelectedGroups') || ''));
-
-my @packages = split(',',
-            ($db->get_prop_and_delete('dnf', 'SelectedPackages') || ''));
-
-if (@groups)
-{
-    system(YUM_CMD, "group$function", @groups) == 0 or
-	die "dnf group$function @groups failed: $?\n";
+if (@groups) {
+    run_or_exit(YUM_CMD, "group$function", @groups);
 }
 
-if (@packages)
-{
-    system(YUM_CMD, $function, @packages) == 0 or
-	die "dnf $function @packages failed: $?\n";
+if (@packages) {
+    run_or_exit(YUM_CMD, $function, @packages);
 }
 
-exit 0;
+exit $EXIT;
