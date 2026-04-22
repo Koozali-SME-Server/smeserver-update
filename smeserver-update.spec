@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 35
+%define release 36
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -70,6 +70,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Tue Apr 21 2026 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-36.sme
+- remove old server-manager panel [SME: 113505]
+
 * Thu Mar 05 2026 Brian Read <brianr@koozali.org> 11.0.0-35.sme
 - Add final flourish to dnf-action script so that dnf panel can detect end of run, and some defensive code [SME: 13456]
 

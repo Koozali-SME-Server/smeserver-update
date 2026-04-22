@@ -36,7 +36,3 @@ event_link("systemd-default", $event, "88");
 templates2events("/etc/rsyslog.conf",$event);
 safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/rsyslog");
 
-#--------------------------------------------------
-# functions for manager panel
-#--------------------------------------------------
-panel_link("yum", "manager");
