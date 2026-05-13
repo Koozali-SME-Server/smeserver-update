@@ -92,3 +92,11 @@ name=squid
 stream=4
 profiles=
 state=enabled' | crudini --merge /etc/dnf/modules.d/squid.module
+
+# set java
+printf '[javapackages-runtime]
+name=javapackages-runtime
+stream=201801
+profiles=
+state=enabled' | crudini --merge /etc/dnf/modules.d/javapackages-runtime.module
+

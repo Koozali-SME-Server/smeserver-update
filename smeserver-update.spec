@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 36
+%define release 37
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -70,6 +70,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Wed May 13 2026 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-37.sme
+- enable java module [SME: 13539]
+
 * Tue Apr 21 2026 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-36.sme
 - remove old server-manager panel [SME: 113505]
 
