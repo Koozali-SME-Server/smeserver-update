@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 37
+%define release 38
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -70,6 +70,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Thu May 28 2026 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-38.sme
+- add zabbix keys, update nariadb2 [SME: 13548]
+
 * Wed May 13 2026 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-37.sme
 - enable java module [SME: 13539]
 

@@ -19,7 +19,7 @@ for ( qw(install remove update) )
 
 safe_symlink("restart", "root/etc/e-smith/events/dnf-modify/services2adjust/dnf");
 
-for ( qw(bootstrap-console-save dnf-update ) )
+for ( qw(bootstrap-console-save dnf-update smeserver-update-update) )
 {
     event_link("rpm-import-keys", $_, "10");
 }
