@@ -72,6 +72,13 @@ stream=1.641
 profiles=
 state=enabled' | crudini --merge /etc/dnf/modules.d/perl-DBI.module
 
+#set perl-YAML
+printf '[perl-YAML]
+name=perl-YAML
+stream=1.24
+profiles=
+state=enabled' | crudini --merge /etc/dnf/modules.d/perl-YAML.module
+
 # set composer
 printf '[composer]
 name=composer

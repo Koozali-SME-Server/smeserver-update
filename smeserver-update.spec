@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 38
+%define release 39
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL2.0
@@ -70,6 +70,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Fri Sep 04 2026 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-39.sme
+- enable perl-YAML module [SME: 13719]
+
 * Thu May 28 2026 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-38.sme
 - add zabbix keys, update nariadb2 [SME: 13548]
 
