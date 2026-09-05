@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 39
+%define release 40
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL2.0
@@ -70,6 +70,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Fri Sep 04 2026 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-40.sme
+- remove old panel elements [SME: 13505]
+
 * Fri Sep 04 2026 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-39.sme
 - enable perl-YAML module [SME: 13719]
 
