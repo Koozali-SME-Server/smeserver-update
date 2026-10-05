@@ -2,7 +2,7 @@
 Summary: Koozali SME Server rpm updater
 Name: %{name}
 %define version 11.0.0
-%define release 40
+%define release 41
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL2.0
@@ -70,6 +70,9 @@ mkdir -p root/etc/yum.smerepos.d
 
 
 %changelog
+* Mon Oct 05 2026 Trevor Batley <trevorb@koozali.org> 11.0.0-41.sme
+- update for sme12 [SME: 13782]
+
 * Fri Sep 04 2026 Jean-Philippe Pialasse <jpp@koozali.org> 11.0.0-40.sme
 - remove old panel elements [SME: 13505]
 
