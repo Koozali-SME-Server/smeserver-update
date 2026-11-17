@@ -4,7 +4,9 @@ mkdir -p /tmp/check4contribsupdates.$$
 TMPFILE=`mktemp /tmp/check4contribsupdates.$$/XXXXXXXXXX` || exit 1
 TMP1=`mktemp /tmp/check4contribsupdates.$$/XXXXXXXXXX` || exit 1
 
-MAILADDR=admin-dnf
+MAILADDR=admin-dnf@`hostname`
+MAILFROM=root@`hostname`
+
 
 dnf -e 0 -d 0 check-update --disablerepo=* --enablerepo=smecontribs > $TMP1
 if [ $? = 100 ]; then
@@ -23,7 +25,7 @@ fi
 
 if [ -s $TMPFILE ]; then
   if [ "$1" = "-m" ]; then
-    mail -s "SME Server Contribs Updates available for `hostname`" $MAILADDR < $TMPFILE
+    mail -s "SME Server Contribs Updates available for `hostname`" -r $MAILFROM $MAILADDR < $TMPFILE
   else
     echo "SME Server Contribs Updates available for `hostname`"
     cat $TMPFILE
